@@ -1,26 +1,28 @@
-import PageTitle from './components/PageTitle';
-import AppHeader from './components/AppHeader';
-import styles from './styles/modules/app.module.scss'
-import AppContent from './components/AppContent';
-import { Toaster } from 'react-hot-toast'
+import PageTitle from "./components/PageTitle";
+import AppHeader from "./components/AppHeader";
+import styles from "./styles/modules/app.module.scss";
+import AppContent from "./components/AppContent";
+import { Toaster } from "react-hot-toast";
 function App() {
   return (
     <>
-    <div className="App">
-      <PageTitle>TODO LIST</PageTitle>
-      <div className={styles.app__wrapper}>
-      <AppHeader />
-      <AppContent />
+      <div className="App">
+        <PageTitle title={"todo list"} />
+        <div className={styles.app__wrapper}>
+          <AppHeader />
+          <AppContent />
+        </div>
       </div>
-    </div>
-    <Toaster toastOptions={{
-      position:"bottom-right",
-      style: {
-        fontSize: '1.4rem'
-      }}
-    }></Toaster>
+      <Toaster
+        toastOptions={{
+          position: "bottom-right",
+          style: {
+            fontSize: "1.4rem",
+          },
+        }}
+      ></Toaster>
     </>
-  )
+  );
 }
 
 export default App;

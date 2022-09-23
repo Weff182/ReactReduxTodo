@@ -1,4 +1,3 @@
-import { format } from "date-fns/esm";
 import React, { useEffect, useState } from "react";
 import styles from "../styles/modules/todoItem.module.scss";
 import { getClasses } from "../utils/getClasses";
@@ -11,16 +10,16 @@ import CheckButton from "./CheckButton";
 
 function TodoItem({ todo }) {
   const [updateModelOpen, setUpdateModelOpen] = useState(false);
-  const [checked, setChecked] = useState(false)
+  const [checked, setChecked] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(todo.status === 'complete'){
-        setChecked(true)
+    if (todo.status === "complete") {
+      setChecked(true);
     } else {
-        setChecked(false)
+      setChecked(false);
     }
-  }, [todo.status])
+  }, [todo.status]);
 
   const handleDelete = () => {
     toast.success("TODO deleted successfully");
@@ -32,17 +31,19 @@ function TodoItem({ todo }) {
   };
 
   const handleCheck = () => {
-    setChecked(!checked)
-    dispatch(updateTodo({
+    setChecked(!checked);
+    dispatch(
+      updateTodo({
         ...todo,
-        status: checked ? 'incomplete' : 'complete',
-    }))
-  }
+        status: checked ? "incomplete" : "complete",
+      })
+    );
+  };
   return (
     <>
       <div className={styles.item}>
         <div className={styles.todoDetails}>
-          <CheckButton checked={checked} handleCheck={handleCheck}/>
+          <CheckButton checked={checked} handleCheck={handleCheck} />
           <div className={styles.text}>
             <p
               className={getClasses([
@@ -53,7 +54,7 @@ function TodoItem({ todo }) {
               {todo.title}
             </p>
             <p className={styles.time}>
-              {format(new Date(todo.time), "p, dd/MM/yyyy")}
+              {todo.time}
             </p>
           </div>
         </div>
