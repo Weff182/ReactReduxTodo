@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import styles from "../styles/modules/todoItem.module.scss";
-import { getClasses } from "../utils/getClasses";
-import { MdDelete, MdEdit } from "react-icons/md";
-import { useDispatch } from "react-redux";
-import { deleteTodo, updateTodo } from "../slices/todoSlice";
-import toast from "react-hot-toast";
-import TodoModel from "./TodoModel";
-import CheckButton from "./CheckButton";
+import React, { useEffect, useState } from 'react';
+import { MdDelete, MdEdit } from 'react-icons/md';
+import { useDispatch } from 'react-redux';
+import toast from 'react-hot-toast';
+import styles from '../styles/modules/todoItem.module.scss';
+import { getClasses } from '../utils/getClasses';
+import { deleteTodo, updateTodo } from '../slices/todoSlice';
+import TodoModel from './TodoModel';
+import CheckButton from './checkButton/index';
 
 function TodoItem({ todo }) {
   const [updateModelOpen, setUpdateModelOpen] = useState(false);
@@ -14,7 +14,7 @@ function TodoItem({ todo }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (todo.status === "complete") {
+    if (todo.status === 'complete') {
       setChecked(true);
     } else {
       setChecked(false);
@@ -22,7 +22,7 @@ function TodoItem({ todo }) {
   }, [todo.status]);
 
   const handleDelete = () => {
-    toast.success("TODO deleted successfully");
+    toast.success('TODO deleted successfully');
     dispatch(deleteTodo(todo.id));
   };
 
@@ -35,8 +35,8 @@ function TodoItem({ todo }) {
     dispatch(
       updateTodo({
         ...todo,
-        status: checked ? "incomplete" : "complete",
-      })
+        status: checked ? 'incomplete' : 'complete',
+      }),
     );
   };
   return (
@@ -48,7 +48,7 @@ function TodoItem({ todo }) {
             <p
               className={getClasses([
                 styles.todoText,
-                todo.status === "complete" && styles["todoText--completed"],
+                todo.status === 'complete' && styles['todoText--completed'],
               ])}
             >
               {todo.title}

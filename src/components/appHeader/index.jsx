@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import Button, { SelectButton } from "./Button";
-import styles from "../styles/modules/app.module.scss";
-import TodoModel from "./TodoModel";
-import { useDispatch, useSelector } from "react-redux";
-import { updateFilterStatus } from "../slices/todoSlice";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Button, { SelectButton } from '../button/index';
+import TodoModel from '../TodoModel';
+import { updateFilterStatus } from '../../slices/todoSlice';
+import { HeaderWraper } from './styled';
 
 function AppHeader() {
   const [modelOpen, setModelOpen] = useState(false);
@@ -14,9 +14,14 @@ function AppHeader() {
   const updateFilter = (e) => {
     dispatch(updateFilterStatus(e.target.value));
   };
+
+  const handleChange = () => {
+    setModelOpen(!modelOpen);
+  };
+
   return (
-    <div className={styles.appHeader}>
-      <Button variant="primary" onClick={() => setModelOpen(true)}>
+    <HeaderWraper>
+      <Button variant="primary" onClick={handleChange}>
         Add Task
       </Button>
       <SelectButton id="status" value={filterStatus} onChange={updateFilter}>
@@ -25,7 +30,7 @@ function AppHeader() {
         <option value="complete"> complete </option>
       </SelectButton>
       <TodoModel type="add" modelOpen={modelOpen} setModelOpen={setModelOpen} />
-    </div>
+    </HeaderWraper>
   );
 }
 
