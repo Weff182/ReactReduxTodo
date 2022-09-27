@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import TodoItem from '../TodoItem';
+import TodoItem from '../todoItem/index';
 import { Content } from './styled';
 
 function AppContent() {

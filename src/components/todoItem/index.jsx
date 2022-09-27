@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { MdDelete, MdEdit } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
-import styles from '../styles/modules/todoItem.module.scss';
-import { getClasses } from '../utils/getClasses';
-import { deleteTodo, updateTodo } from '../slices/todoSlice';
-import TodoModel from './TodoModel';
-import CheckButton from './checkButton/index';
+import { deleteTodo, updateTodo } from '../../store/slices/todoSlice';
+import TodoModel from '../todoModel/index';
+import CheckButton from '../checkButton/index';
+import {
+  TodoItemWrapper, TodoItemDetalis, TextWrapper, TextItem, Time, TodoActions, Icon,
+} from './styled';
 
 function TodoItem({ todo }) {
   const [updateModelOpen, setUpdateModelOpen] = useState(false);
@@ -41,44 +42,39 @@ function TodoItem({ todo }) {
   };
   return (
     <>
-      <div className={styles.item}>
-        <div className={styles.todoDetails}>
+      <TodoItemWrapper>
+        <TodoItemDetalis>
           <CheckButton checked={checked} handleCheck={handleCheck} />
-          <div className={styles.text}>
-            <p
-              className={getClasses([
-                styles.todoText,
-                todo.status === 'complete' && styles['todoText--completed'],
-              ])}
+          <TextWrapper>
+            <TextItem
+              status={todo.status === 'complete' ? 'complete' : 'incomplete'}
             >
               {todo.title}
-            </p>
-            <p className={styles.time}>
+            </TextItem>
+            <Time>
               {todo.time}
-            </p>
-          </div>
-        </div>
-        <div className={styles.todoActions}>
-          <div
-            className={styles.icon}
+            </Time>
+          </TextWrapper>
+        </TodoItemDetalis>
+        <TodoActions>
+          <Icon
             onClick={handleDelete}
             onKeyDown={handleDelete}
             role="button"
             tabIndex={0}
           >
             <MdDelete />
-          </div>
-          <div
-            className={styles.icon}
+          </Icon>
+          <Icon
             onClick={handleUpdate}
             onKeyDown={handleUpdate}
             role="button"
             tabIndex={0}
           >
             <MdEdit />
-          </div>
-        </div>
-      </div>
+          </Icon>
+        </TodoActions>
+      </TodoItemWrapper>
       <TodoModel
         todo={todo}
         type="update"

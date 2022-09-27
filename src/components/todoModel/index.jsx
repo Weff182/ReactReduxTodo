@@ -3,9 +3,11 @@ import { MdOutlineClose } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import toast from 'react-hot-toast';
-import { addTodo, updateTodo } from '../slices/todoSlice';
-import Button from './button';
-import styles from '../styles/modules/modal.module.scss';
+import { addTodo, updateTodo } from '../../store/slices/todoSlice';
+import Button from '../button';
+import {
+  ModelWrapper, ModelContainer, CloseButton, ModelForm, FormTitle, ButtonContainer,
+} from './styled';
 
 function TodoModel({
   type, modelOpen, setModelOpen, todo,
@@ -24,6 +26,16 @@ function TodoModel({
     }
   }, [type, todo, modelOpen]);
 
+  const handleChangeState = () => {
+    setModelOpen(false);
+  };
+
+  const handleChangeStatus = (e) => {
+    setStatus(e.target.value);
+  };
+  const handleChangeTitle = (e) => {
+    setTitle(e.target.value);
+  };
   const handelSubmit = (e) => {
     e.preventDefault();
     if (title && status) {
@@ -58,32 +70,32 @@ function TodoModel({
       toast.error('Title should dont be empty');
     }
   };
+
   return (
     modelOpen && (
-      <div className={styles.wrapper}>
-        <div className={styles.container}>
-          <div
-            className={styles.closeButton}
-            onClick={() => setModelOpen(false)}
-            onKeyDown={() => setModelOpen(false)}
+      <ModelWrapper>
+        <ModelContainer>
+          <CloseButton
+            onClick={handleChangeState}
+            onKeyDown={handleChangeState}
             tabIndex={0}
             role="button"
           >
             <MdOutlineClose />
-          </div>
-          <form className={styles.form} onSubmit={(e) => handelSubmit(e)}>
-            <h1 className={styles.formTitle}>
+          </CloseButton>
+          <ModelForm onSubmit={handelSubmit}>
+            <FormTitle>
               {type === 'update' ? 'Update' : 'Add'}
               {' '}
               Task
-            </h1>
+            </FormTitle>
             <label htmlFor="title">
               Title
               <input
                 type="text"
                 id="title"
                 value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={handleChangeTitle}
               />
             </label>
             <label htmlFor="status">
@@ -92,13 +104,13 @@ function TodoModel({
                 name="status"
                 id="status"
                 value={status}
-                onChange={(e) => setStatus(e.target.value)}
+                onChange={handleChangeStatus}
               >
                 <option value="incomplete">Incomplete</option>
                 <option value="complete">Complete</option>
               </select>
             </label>
-            <div className={styles.buttonContainer}>
+            <ButtonContainer>
               <Button type="submit" variant="primary">
                 {type === 'update' ? 'Update' : 'Add'}
                 {' '}
@@ -107,15 +119,15 @@ function TodoModel({
               <Button
                 type="button"
                 variant="secondary"
-                onClick={() => setModelOpen(false)}
-                onKeyDown={() => setModelOpen(false)}
+                onClick={handleChangeState}
+                onKeyDown={handleChangeState}
               >
                 Cancel
               </Button>
-            </div>
-          </form>
-        </div>
-      </div>
+            </ButtonContainer>
+          </ModelForm>
+        </ModelContainer>
+      </ModelWrapper>
     )
   );
 }

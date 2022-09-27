@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
-export const SvgBox = styled.div`
+export const SvgBox = styled(motion.div)`
 flex-basis: 25px;
 flex-shrink: 0;
 height: 25px;
@@ -16,7 +17,7 @@ transition: 0.3s ease background-color;
 }
 `;
 
-export const SvgAn = styled.svg`
+export const SvgIcon = styled(motion.svg)`
 width: 100%;
 height: 100%;
 stroke: white;
